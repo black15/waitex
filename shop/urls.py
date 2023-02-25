@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import home
+from .views import home, category_detail
 
 app_name = 'shop'
 
 urlpatterns = [
-	 path("index", home, name="home"),
+	path("", home, name="home"),
+	path("category/<str:cid>", category_detail, name="category_detail"),
 ]

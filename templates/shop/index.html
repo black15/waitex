@@ -1,12 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="flex flex-col items-center">
+<div class="flex flex-col p-6 mx-6">
 	<div class="flex">
 		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri">
 			الفئات المميزة
 		</h1>
 	</div>
+	<div class="flex flex-row flex-wrap items-end justify-around py-6 w-full">
+		{% for category in categories %}
+			<div class="bg-[#ff7e2e17] rounded-lg p-4 transition duration-500 hover:bg-[#ff8a4254]">
+				<a href="{{category.get_absolute_url}}" class="flex flex-col items-center space-y-2 duration-500 hover:scale-110">
+					<img src="{{category.image.url}}" alt="Category Image" width="100" height="100" />
+					<h3 class="text-gray-800 text-lg font-elmessiri font-medium">
+						{{category.name}}
+					</h3>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
 	
+	<div class="flex flex-row flex-wrap justify-around my-16">
+		<div class="w-1/4 flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254]">
+			<div class="flex flex-col items-center space-y-3">
+				<h2 class="text-gray-800 text-3xl font-elmessiri">
+					الله اني أعوذ بك من فجأة الأمور
+				</h2>
+				<a href="" class="max-w-md text-gray-50 text-xl font-elmessiri bg-[#ff8a428f] p-2 rounded">عرض المزيد</a>
+			</div>
+			<div class="flex items-center justify-center">
+				<img src="http://127.0.0.1:8000/media/uploads/category/arch-chair-pebble-green-boucle-fabric-with-black-metal-legs-100205105-01-main.webp" alt="Image" width="200">
+			</div>
+		</div>
+		<div class="w-1/4 flex flex-row items-center justify-center bg-[#4294ff1e] p-6 rounded duration-300 hover:bg-[#4294ff5d]">
+			<div class="flex flex-col items-center space-y-3">
+				<h2 class="text-gray-800 text-3xl font-elmessiri">
+					الله اني أعوذ بك من فجأة الأمور
+				</h2>
+				<a href="" class="max-w-md text-gray-50 text-xl font-elmessiri bg-[#4294ff91] p-2 rounded">عرض المزيد</a>
+			</div>
+			<div class="">
+				<img src="http://127.0.0.1:8000/media/uploads/category/sunderland-upholstered-bed-grey-icon-linen.webp" alt="Image" width="200">
+			</div>
+		</div>
+		<div class="w-1/4 flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254]">
+			<div class="flex flex-col items-center space-y-3">
+				<h2 class="text-gray-800 text-3xl font-elmessiri">
+					الله اني أعوذ بك من فجأة الأمور
+				</h2>
+				<a href="" class="max-w-md text-gray-50 text-xl font-elmessiri bg-[#ff8a428f] p-2 rounded">عرض المزيد</a>
+			</div>
+			<div class="">
+				<img src="http://127.0.0.1:8000/media/uploads/category/9396706.png" alt="Image" width="200">
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

@@ -1,7 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-# Create your views here.
+from .models import *
 
 def home(request):
-	return render(request, 'shop/index.html')
+	context = {}
+	categories = Category.objects.all()
+	
+	context['categories'] = categories
+	return render(request, 'shop/index.html', context)
+
+def category_detail(request, cid):
+   context 	= {}
+   category = Category.objects.get(uuid=cid)
+   products = Product.objects.filter(category=category)
+   
+   context['products'] = products
+   return render(request, 'shop/category_products.html', context)

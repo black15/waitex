@@ -36,6 +36,9 @@ class Category(models.Model):
    def get_category_img(self):
       return mark_safe(f'<img src={self.image} width=50 height=50 />')
    
+   def get_absolute_url(self):
+      return reverse("shop:category_detail", kwargs={"cid": self.uuid})
+   
 def product_image_path(instance):
 	return f'uploads/product/{instance.slug}'
 
@@ -51,6 +54,7 @@ class Product(models.Model):
    featured    = models.BooleanField(_("Featured"), default=False)
    created_At  = models.DateTimeField(_("Created"), auto_now_add=True)
    updated_At  = models.DateTimeField(_("Updated"), auto_now=True)
+   category    = models.ForeignKey("Category", verbose_name=_("Category"), on_delete=models.CASCADE, null=True)
    
    tags = TaggableManager()
 
@@ -61,7 +65,10 @@ class Product(models.Model):
    
    def __str__(self):
        return self.name
-
+   
+   def get_absolute_url(self):
+      return reverse("shop:product_detail", kwargs={"slug": self.slug})
+   
 class Order(models.Model):
    customer       = models.ForeignKey("Customer", verbose_name=_("customer"), on_delete=models.SET_NULL, null=True)
    status         = models.BooleanField(_("Status"), default=False)
