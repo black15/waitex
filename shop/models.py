@@ -39,13 +39,13 @@ class Category(models.Model):
    def get_absolute_url(self):
       return reverse("shop:category_detail", kwargs={"cid": self.uuid})
    
-def product_image_path(instance):
-	return f'uploads/product/{instance.slug}'
+# def product_image_path(instance):
+# 	return f'uploads/product/{instance.slug}'
 
 class Product(models.Model):
    name        = models.CharField(_("Name"), max_length=50)
    slug        = models.SlugField(_("Slug"), unique=True)
-   image       = models.ImageField(_("Image"), upload_to=product_image_path)
+   image       = models.ImageField(_("Image"), upload_to='uploads/product/')
    description = models.TextField(_("Description"))
    price       = models.FloatField(_("Price"))
    discount    = models.IntegerField(_("Discount %"), null=True, blank=True)
@@ -56,7 +56,7 @@ class Product(models.Model):
    updated_At  = models.DateTimeField(_("Updated"), auto_now=True)
    category    = models.ForeignKey("Category", verbose_name=_("Category"), on_delete=models.CASCADE, null=True)
    
-   tags = TaggableManager()
+   # tags = TaggableManager()
 
    def save(self, *args, **kwargs):
       if not self.slug:
@@ -67,7 +67,7 @@ class Product(models.Model):
        return self.name
    
    def get_absolute_url(self):
-      return reverse("shop:product_detail", kwargs={"slug": self.slug})
+      return reverse("shop:product_details", kwargs={"slug": self.slug})
    
 class Order(models.Model):
    customer       = models.ForeignKey("Customer", verbose_name=_("customer"), on_delete=models.SET_NULL, null=True)

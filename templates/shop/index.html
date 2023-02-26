@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="flex flex-col p-6 mx-6">
-	<div class="flex">
+<div class="flex flex-col items-start">
+
+	<div class="flex flex-col items-start space-y-6 w-full">
 		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri">
-			الفئات المميزة
+			المنتجات المميزة
 		</h1>
-	</div>
-	<div class="flex flex-row flex-wrap items-end justify-around py-6 w-full">
-		{% for category in categories %}
-			<div class="bg-[#ff7e2e17] rounded-lg p-4 transition duration-500 hover:bg-[#ff8a4254]">
-				<a href="{{category.get_absolute_url}}" class="flex flex-col items-center space-y-2 duration-500 hover:scale-110">
-					<img src="{{category.image.url}}" alt="Category Image" width="100" height="100" />
-					<h3 class="text-gray-800 text-lg font-elmessiri font-medium">
-						{{category.name}}
-					</h3>
-				</a>
-			</div>
-		{% endfor %}
+		<div class="flex flex-wrap items-center justify-center lg:space-x-[100px]">
+			{% for category in categories %}
+				<div class="bg-[#ff7e2e17] rounded-lg p-4 transition duration-500 hover:bg-[#ff8a4254] my-2 lg:ml-[100px]">
+					<a href="{{category.get_absolute_url}}" class="flex flex-col items-center space-y-2 duration-500 hover:scale-110">
+						<img src="{{category.image.url}}" alt="Category Image" width="100" height="100" />
+						<h3 class="text-gray-800 text-lg font-elmessiri font-medium">
+							{{category.name}}
+						</h3>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
 	</div>
 	
 	<div class="flex flex-row flex-wrap justify-around my-16">
@@ -55,5 +56,41 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="flex flex-col items-start space-y-6 w-full">
+		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri">
+			المنتجات المميزة
+		</h1>
+		<div class="flex flex-wrap items-center justify-center lg:space-x-[100px]">
+			{% for product in products %}
+				<div class="p-2 pt-6 transition duration-500 my-2 lg:ml-[100px] shadow rounded-lg">
+					<a href="{{product.get_absolute_url}}" class="flex flex-col items-center my-3">
+						<img class="duration-500 hover:scale-125" src="{{product.image.url}}" alt="Category Image" width="200" height="200" />
+						<div class="m-2 md:m-6">
+							<a href="#" class="text-gray-600 text-md font-tajawal font-medium w-full">{{product.category.name}}</a>
+							<h3 class="max-w-md text-gray-800 text-md font-poppins" dir="ltr">
+								{{product.name | truncatechars:25}}
+							</h3>
+						</div>
+					</a>
+					<div class="my-2">
+						☆★★★
+					</div>
+					<div class="flex flex-row items-center justify-between">
+						<h3 class="text-orange-600 text-lg font-marhey">
+							{{product.price}}دج
+						</h3>
+						<button class="flex items-center bg-orange-600 px-6 py-2 font-marhey rounded">
+							<span class="ml-2 text-gray-50">
+								أضافة
+							</span>
+							<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="10" cy="19" r="1.5" stroke="#fff"></circle> <circle cx="17" cy="19" r="1.5" stroke="#fff"></circle> <path d="M3.5 4H5.5L9.00446 15H17" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.22445 12.5L6.29862 6.5H18.8063C19.1476 6.5 19.3885 6.83435 19.2806 7.15811L17.614 12.1581C17.5459 12.3623 17.3548 12.5 17.1396 12.5H8.22445Z" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+						</button>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
 </div>
 {% endblock %}

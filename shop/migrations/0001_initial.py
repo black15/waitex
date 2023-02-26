@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50, verbose_name='Name')),
                 ('slug', models.SlugField(unique=True, verbose_name='Slug')),
-                ('image', models.ImageField(upload_to=shop.models.product_image_path, verbose_name='Image')),
+                ('image', models.ImageField(upload_to='uploads/product', verbose_name='Image')),
                 ('description', models.TextField(verbose_name='Description')),
                 ('price', models.FloatField(verbose_name='Price')),
                 ('discount', models.IntegerField(blank=True, null=True, verbose_name='Discount %')),
