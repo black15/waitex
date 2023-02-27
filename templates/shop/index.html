@@ -3,11 +3,12 @@
 {% block content %}
 <div class="flex flex-col items-start">
 
+	{% comment %} Categories {% endcomment %}
 	<div class="flex flex-col items-start space-y-6 w-full">
-		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri">
-			المنتجات المميزة
+		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri mx-auto lg:mx-0">
+			الفئات المميزة
 		</h1>
-		<div class="flex flex-wrap items-center justify-center lg:space-x-[100px]">
+		<div class="flex flex-wrap items-center justify-evenly lg:justify-center lg:space-x-[100px]">
 			{% for category in categories %}
 				<div class="bg-[#ff7e2e17] rounded-lg p-4 transition duration-500 hover:bg-[#ff8a4254] my-2 lg:ml-[100px]">
 					<a href="{{category.get_absolute_url}}" class="flex flex-col items-center space-y-2 duration-500 hover:scale-110">
@@ -20,9 +21,11 @@
 			{% endfor %}
 		</div>
 	</div>
-	
-	<div class="flex flex-row flex-wrap justify-around my-16">
-		<div class="w-1/4 flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254]">
+	{% comment %} Categories END {% endcomment %}
+
+	{% comment %} Collections Section {% endcomment %}
+	<div class="w-full flex flex-col items-center justify-center space-y-6 lg:flex-row lg:flex-wrap lg:justify-around my-16 p-4">
+		<div class="flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254] lg:w-1/4">
 			<div class="flex flex-col items-center space-y-3">
 				<h2 class="text-gray-800 text-3xl font-elmessiri">
 					الله اني أعوذ بك من فجأة الأمور
@@ -33,7 +36,7 @@
 				<img src="http://127.0.0.1:8000/media/uploads/category/arch-chair-pebble-green-boucle-fabric-with-black-metal-legs-100205105-01-main.webp" alt="Image" width="200">
 			</div>
 		</div>
-		<div class="w-1/4 flex flex-row items-center justify-center bg-[#4294ff1e] p-6 rounded duration-300 hover:bg-[#4294ff5d]">
+		<div class="flex flex-row items-center justify-center bg-[#4294ff1e] p-6 rounded duration-300 hover:bg-[#4294ff5d] lg:w-1/4">
 			<div class="flex flex-col items-center space-y-3">
 				<h2 class="text-gray-800 text-3xl font-elmessiri">
 					الله اني أعوذ بك من فجأة الأمور
@@ -44,7 +47,7 @@
 				<img src="http://127.0.0.1:8000/media/uploads/category/sunderland-upholstered-bed-grey-icon-linen.webp" alt="Image" width="200">
 			</div>
 		</div>
-		<div class="w-1/4 flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254]">
+		<div class="flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254] lg:w-1/4">
 			<div class="flex flex-col items-center space-y-3">
 				<h2 class="text-gray-800 text-3xl font-elmessiri">
 					الله اني أعوذ بك من فجأة الأمور
@@ -56,20 +59,22 @@
 			</div>
 		</div>
 	</div>
+	{% comment %} Collections Section END {% endcomment %}
 
+	{% comment %} Products {% endcomment %}
 	<div class="flex flex-col items-start space-y-6 w-full">
-		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri">
+		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri mx-auto lg:mx-0">
 			المنتجات المميزة
 		</h1>
 		<div class="flex flex-wrap items-center justify-evenly">
 			{% for product in products %}
 				<div class="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md my-6">
-					<a class="relative mx-3 mt-3 flex items-center justify-center h-60 overflow-hidden rounded-xl" href="#">
+					<a class="relative mx-3 mt-3 flex items-center justify-center h-60 overflow-hidden rounded-xl" href="{{product.get_absolute_url}}">
 					  <img class="rounded-t-lg p-8 duration-500 hover:scale-110" src="{{product.image.url}}" alt="product image" />
 					  <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
 					</a>
 					<div class="mt-4 px-5 pb-5">
-					  <a href="#">
+					  <a href="{{product.get_absolute_url}}">
 						 <h5 class="text-xl tracking-tight text-slate-900" dir="ltr">{{product.name}}</h5>
 					  </a>
 					  <div class="mt-2 mb-5 flex items-center justify-between">
@@ -106,5 +111,6 @@
 			{% endfor %}
 		</div>
 	</div>
+	{% comment %} Products END {% endcomment %}
 </div>
 {% endblock %}
