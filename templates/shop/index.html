@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="flex flex-col items-start">
 
 	{% comment %} Categories {% endcomment %}
-	<div class="flex flex-col items-start space-y-6 w-full">
+	<div class="flex flex-col items-center justify-center space-y-6 w-full">
 		<h1 class="text-3xl text-gray-800 font-medium font-elmessiri mx-auto lg:mx-0">
 			الفئات المميزة
 		</h1>
-		<div class="flex flex-wrap items-center justify-evenly lg:justify-center lg:space-x-[100px]">
+		<div class="flex flex-wrap items-center justify-center space-x-6" x-intersect="$el.classList.add('fade-in')">
 			{% for category in categories %}
-				<div class="bg-[#ff7e2e17] rounded-lg p-4 transition duration-500 hover:bg-[#ff8a4254] my-2 lg:ml-[100px]">
+				<div class="bg-[#fff] rounded-lg p-4 my-2 transition duration-500 hover:bg-[#e4e4e434] ml-6">
 					<a href="{{category.get_absolute_url}}" class="flex flex-col items-center space-y-2 duration-500 hover:scale-110">
-						<img src="{{category.image.url}}" alt="Category Image" width="100" height="100" />
-						<h3 class="text-gray-800 text-lg font-elmessiri font-medium">
+						<img src="{{category.image.url}}" alt="Category Image" width="250" height="250" />
+						<h3 class="text-gray-800 text-xl font-elmessiri font-medium">
 							{{category.name}}
 						</h3>
 					</a>
@@ -24,7 +25,7 @@
 	{% comment %} Categories END {% endcomment %}
 
 	{% comment %} Collections Section {% endcomment %}
-	<div class="w-full flex flex-col items-center justify-center space-y-6 lg:flex-row lg:flex-wrap lg:justify-around my-16 p-4">
+	<div class="w-full flex flex-col items-center justify-center space-y-6 lg:space-y-0 lg:flex-row lg:flex-wrap lg:justify-around my-16 p-4">
 		<div class="flex flex-row items-center justify-center bg-[#ff8a421e] p-6 rounded duration-300 hover:bg-[#ff8a4254] lg:w-1/4">
 			<div class="flex flex-col items-center space-y-3">
 				<h2 class="text-gray-800 text-3xl font-elmessiri">
@@ -112,5 +113,14 @@
 		</div>
 	</div>
 	{% comment %} Products END {% endcomment %}
-</div>
+
+	{% comment %} Collections {% endcomment %}
+	<!-- TODO Collections -->
+	{% comment %} Collections END {% endcomment %}
+
 {% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/countdown.js' %}" defer></script>
+<script src="{% static 'js/carousel.js' %}" defer></script>
+{% endblock scripts %}
