@@ -3,11 +3,13 @@ from .models import *
 
 def home(request):
 	context = {}
-	categories = Category.objects.all()
-	products   = Product.objects.all() 
-   
-	context['products']   = products
-	context['categories'] = categories
+	categories  = Category.objects.all()
+	products    = Product.objects.all() 
+	collections = Collection.objects.filter(is_active=True)
+    
+	context['products']     = products
+	context['categories']   = categories
+	context['collections']  = collections
 	return render(request, 'shop/index.html', context)
 
 def product_details(request, slug):

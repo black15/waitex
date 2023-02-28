@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'account',
     'shop',
     'taggit',
+    
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [

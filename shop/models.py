@@ -69,6 +69,20 @@ class Product(models.Model):
    def get_absolute_url(self):
       return reverse("shop:product_details", kwargs={"slug": self.slug})
    
+class Collection(models.Model):
+   title       = models.CharField(_("Title"), max_length=50)
+   deadline    = models.DateTimeField(_("Deadline"), null=True)
+   is_active   = models.BooleanField(_("Active"), default=False)
+   product     = models.ManyToManyField("Product", verbose_name=_("Item"))
+   image       = models.ImageField(_("Background Image"), upload_to='uploads/collection', null=True)
+   
+   def __str__(self):
+      return self.title
+   
+   def get_absolute_url(self):
+      return reverse("model_detail", kwargs={"pk": self.pk})
+   
+
 class Order(models.Model):
    customer       = models.ForeignKey("Customer", verbose_name=_("customer"), on_delete=models.SET_NULL, null=True)
    status         = models.BooleanField(_("Status"), default=False)
