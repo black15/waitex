@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="flex flex-col">
 	<div class="flex flex-row-reverse items-center justify-between text-gray-700 border-b-2 border-[#00000010]">
 		<div class="flex flex-row-reverse items-center space-x-4 font-sans text-sm px-6">
@@ -19,7 +21,7 @@
 			<form class="w-full">
 				<div class="flex relative">
 					<button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center bg-white outline-none text-gray-800 border border-gray-200 rounded-r-lg hover:bg-gray-50 focus:ring-1 focus:outline-none focus:ring-[#ff793f83] font-elmessiri" type="button">كل التصنيفات<svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-						<input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-700 bg-white border-l-gray-50 border-l-2 border border-gray-200 focus:ring-1 focus:outline-none focus:ring-[#ff793f79]" placeholder="ابحث عن ما تريد ..." required>
+						<input type="search" id="search-dropdown" class="block p-2.5 w-full z-10 text-sm text-gray-700 bg-white border-l-gray-50 border-l-2 border border-gray-200 focus:ring-1 focus:outline-none focus:ring-[#ff793f79]" placeholder="ابحث عن ما تريد ..." required>
 						<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
 							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
 							<li>
@@ -46,10 +48,10 @@
 		<div class="w-2/6 flex items-center justify-center space-x-6 py-1 font-tajawal font-medium">
 			<a href="#" class="mx-6">الحساب</a>
 			<a href="#">قائمة الرغبات</a>
-			<a class="flex items-center bg-[#ff9466] text-gray-50 p-1 px-3 rounded-lg" href="#">
+			<button @click="slideIn" class="flex items-center bg-[#ff9466] text-gray-50 p-1 px-3 rounded-lg" href="/cart">
 				السلة
 				<svg class="mr-2 w-[27px] h-[27px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.15" d="M4.97043 9.81038C5.06819 8.78391 5.93031 8 6.96142 8H17.0386C18.0697 8 18.9318 8.78391 19.0296 9.81038L19.7915 17.8104C19.9033 18.9846 18.9799 20 17.8005 20H6.19952C5.02004 20 4.0967 18.9846 4.20853 17.8104L4.97043 9.81038Z" fill="#fff"></path> <path d="M8 11.01V11M16 11.01V11M8 8V7C8 5.93913 8.42143 4.92172 9.17157 4.17157C9.92172 3.42143 10.9391 3 12 3C13.0609 3 14.0783 3.42143 14.8284 4.17157C15.5786 4.92172 16 5.93913 16 7V8M8 8H6.84027C5.80009 8 4.93356 8.79732 4.84718 9.83391L4.18051 17.8339C4.08334 18.9999 5.00352 20 6.1736 20H17.8264C18.9965 20 19.9167 18.9999 19.8195 17.8339L19.1528 9.83391C19.0664 8.79732 18.1999 8 17.1597 8H16M8 8H16" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-			</a>
+			</button>
 		</div>
 	</div>
 
@@ -89,3 +91,131 @@
 
 	</div>
 </div>
+
+<div id="cart" class="hidden relative z-10 duration-300" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" dir="ltr">
+	<!--
+	  Background backdrop, show/hide based on slide-over state.
+ 
+	  Entering: "ease-in-out duration-500"
+		 From: "opacity-0"
+		 To: "opacity-100"
+	  Leaving: "ease-in-out duration-500"
+		 From: "opacity-100"
+		 To: "opacity-0"
+	-->
+	<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-300"></div>
+ 
+	<div class="fixed inset-0 overflow-hidden">
+	  <div class="absolute inset-0 overflow-hidden">
+		 <div id="cart_wrapper" class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 transform transition ease-in-out duration-500 sm:duration-700">
+			<!--
+			  Slide-over panel, show/hide based on slide-over state.
+ 
+			  Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+				 From: "translate-x-full"
+				 To: "translate-x-0"
+			  Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+				 From: "translate-x-0"
+				 To: "translate-x-full"
+			-->
+			<div class="pointer-events-auto w-screen max-w-md">
+			  <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+				 <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+					<div class="flex items-start justify-between">
+					  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+					  <div class="ml-3 flex h-7 items-center">
+						 <button @click="slideOut" type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+							<span class="sr-only">Close panel</span>
+							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+							  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						 </button>
+					  </div>
+					</div>
+ 
+					<div class="mt-8">
+					  <div class="flow-root">
+						 <ul role="list" class="-my-6 divide-y divide-gray-200">
+							<li class="flex py-6">
+							  <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+								 <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+							  </div>
+ 
+							  <div class="ml-4 flex flex-1 flex-col">
+								 <div>
+									<div class="flex justify-between text-base font-medium text-gray-900">
+									  <h3>
+										 <a href="#">Throwback Hip Bag</a>
+									  </h3>
+									  <p class="ml-4">$90.00</p>
+									</div>
+									<p class="mt-1 text-sm text-gray-500">Salmon</p>
+								 </div>
+								 <div class="flex flex-1 items-end justify-between text-sm">
+									<p class="text-gray-500">Qty 1</p>
+ 
+									<div class="flex">
+									  <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+									</div>
+								 </div>
+							  </div>
+							</li>
+ 
+							<li class="flex py-6">
+							  <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+								 <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="h-full w-full object-cover object-center">
+							  </div>
+ 
+							  <div class="ml-4 flex flex-1 flex-col">
+								 <div>
+									<div class="flex justify-between text-base font-medium text-gray-900">
+									  <h3>
+										 <a href="#">Medium Stuff Satchel</a>
+									  </h3>
+									  <p class="ml-4">$32.00</p>
+									</div>
+									<p class="mt-1 text-sm text-gray-500">Blue</p>
+								 </div>
+								 <div class="flex flex-1 items-end justify-between text-sm">
+									<p class="text-gray-500">Qty 1</p>
+ 
+									<div class="flex">
+									  <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+									</div>
+								 </div>
+							  </div>
+							</li>
+ 
+							<!-- More products... -->
+						 </ul>
+					  </div>
+					</div>
+				 </div>
+ 
+				 <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+					<div class="flex justify-between text-base font-medium text-gray-900">
+					  <p>Subtotal</p>
+					  <p>$262.00</p>
+					</div>
+					<p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+					<div class="mt-6">
+					  <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+					</div>
+					<div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+					  <p>
+						 or
+						 <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+							Continue Shopping
+							<span aria-hidden="true"> &rarr;</span>
+						 </button>
+					  </p>
+					</div>
+				 </div>
+			  </div>
+			</div>
+		 </div>
+	  </div>
+	</div>
+ </div>
+
+<script src="{% static 'js/cartslider.js' %}" defer></script>

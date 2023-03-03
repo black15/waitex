@@ -10,18 +10,31 @@
 		<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
 		<link rel="stylesheet" href="{% static 'css/tw-out.css' %}"></link>
 		<link rel="stylesheet" href="{% static 'css/carousel.css' %}"></link>
+		<script src="{% static 'js/loader.js' %}" defer></script>
 		<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js"></script>
+		{% block head %}{% endblock head %}
 	</head>
 
 	<body class="bg-gray-50 font-serif leading-normal tracking-normal" dir="rtl" x-data>
 		{% include 'snippets/header.html' %}
-		{% include 'snippets/hero.html' %}
-		<div class="container mx-auto">
-			{% block content %}{% endblock content %}
-		</div>
+		<div id="page_loader" class="flex items-center justify-center text-center mx-auto h-96">
+			<div role="status">
+				<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="mx-auto bi bi-arrow-repeat animate-spin text-[#ff7300]" viewBox="0 0 16 16">
+					<path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+					<path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+				</svg>
+				 <span class="sr-only">Loading...</span>
+			</div>
+	  	</div>
+		<main id="_main" class="hidden">
+			{% include 'snippets/hero.html' %}
+			<div class="container mx-auto">
+				{% block content %}{% endblock content %}
+			</div>
+		</main>	
+		{% include 'snippets/footer.html' %}
 	</body>
-
 	{% block scripts%} {% endblock %}
-
+	
 </html>
