@@ -38,9 +38,6 @@ class Category(models.Model):
    
    def get_absolute_url(self):
       return reverse("shop:category_detail", kwargs={"cid": self.uuid})
-   
-# def product_image_path(instance):
-# 	return f'uploads/product/{instance.slug}'
 
 class Product(models.Model):
    name        = models.CharField(_("Name"), max_length=50)
@@ -55,8 +52,6 @@ class Product(models.Model):
    created_At  = models.DateTimeField(_("Created"), auto_now_add=True)
    updated_At  = models.DateTimeField(_("Updated"), auto_now=True)
    category    = models.ForeignKey("Category", verbose_name=_("Category"), on_delete=models.CASCADE, null=True)
-   
-   # tags = TaggableManager()
 
    def save(self, *args, **kwargs):
       if not self.slug:
@@ -68,6 +63,12 @@ class Product(models.Model):
    
    def get_absolute_url(self):
       return reverse("shop:product_details", kwargs={"slug": self.slug})
+   
+   def get_product_price(self):
+      if self.discount and int(self.discount) > 0:
+         price = self.price - ((self.discount * self.price) / 100)
+         return price
+      return self.price
    
 class Collection(models.Model):
    title       = models.CharField(_("Title"), max_length=50)

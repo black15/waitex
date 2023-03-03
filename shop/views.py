@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from .models import *
 
 def home(request):
@@ -26,3 +27,13 @@ def category_detail(request, cid):
    
    context['products'] = products
    return render(request, 'shop/category_products.html', context)
+
+def cart(request):
+   
+   return render(request, 'shop/cart/index.html')
+
+def product_category_json(request):
+   products    = list(Product.objects.values())
+   categories  = list(Category.objects.values())
+   data = [products, categories]
+   return JsonResponse(data,safe=False)
