@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
 
     'account',
     'shop',
@@ -116,6 +117,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static_cdn'
 STATICFILES_DIRS = [BASE_DIR / 'assets']
+STATICFILES_FINDERS =( 'django.contrib.staticfiles.finders.FileSystemFinder',  'django.contrib.staticfiles.finders.AppDirectoriesFinder',    'compressor.finders.CompressorFinder',
+) 
+COMPRESS_PRECOMPILERS = (    
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_cdn' 
@@ -126,6 +132,9 @@ MEDIA_ROOT = BASE_DIR / 'media_cdn'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 AUTH_USER_MODEL = 'account.Account'
 

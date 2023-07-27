@@ -86,9 +86,9 @@ class Collection(models.Model):
 
 class Order(models.Model):
    customer       = models.ForeignKey("Customer", verbose_name=_("customer"), on_delete=models.SET_NULL, null=True)
-   status         = models.BooleanField(_("Status"), default=False)
+   is_completed   = models.BooleanField(_("Status"), default=False)
    date_ordered   = models.DateTimeField(_("CreatedAt"), auto_now_add=True)
-   tansaction_id  = ShortUUIDField(
+   transaction_id  = ShortUUIDField(
 		length=10,
 		primary_key=True,
 		prefix="transaction_",
@@ -97,15 +97,31 @@ class Order(models.Model):
    
    def __str__(self):
        return self.transaction_id
+    
+   @property
+   def get_cart_total(self):
+      orderitems = self.orderitem_set.all()
+      total = sum([item.total_price for item in orderitems])
+      return total
+   
+   @property
+   def get_cart_items(self):
+      orderitems = self.orderitem_set.all()
+      total = sum([item.quantity for item in orderitems])
+      return total
    
 class OrderItem(models.Model):
    order       = models.ForeignKey("Order", verbose_name=_("Order"), on_delete=models.CASCADE)
    product     = models.ForeignKey("Product", verbose_name=_("Product"), on_delete=models.CASCADE) 
-   quantity    = models.IntegerField(_("Quantity"), default=0)
+   quantity    = models.IntegerField(_("Quantity"), default=1)
    date_added  = models.DateTimeField(_("Date Added"), auto_now_add=True)
    
    def __str__(self):
       return f"order {self.order.transaction_id} : {self.id}"
+   
+   @property
+   def total_price(self):
+      return self.product.price * self.quantity
 
 class ShippingAddress(models.Model):
    customer    = models.ForeignKey("Customer", verbose_name=_("Customer"), on_delete=models.CASCADE)
@@ -118,3 +134,14 @@ class ShippingAddress(models.Model):
    
    def __str__(self):
       return self.address
+   
+class Cart(models.Model):
+   total = models.DecimalField(_("Total"), max_digits=5, decimal_places=2)
+   quantity = models.IntegerField(_("Qty"))
+   user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE)
+   
+class CartItem(models.Model):
+   cart = models.ForeignKey("Cart", verbose_name=_("Cart"), on_delete=models.CASCADE)
+   product = models.ForeignKey("Product", verbose_name=_("Product"), on_delete=models.CASCADE)
+   product_qty = models.IntegerField(_("Qty"), default=0)
+   user = models.OneToOneField(User, verbose_name=_(""), on_delete=models.CASCADE)
